@@ -1,16 +1,16 @@
-# Haday Việt Nam — Xác nhận giao dịch v3
+# Haday Việt Nam – Xác nhận giao dịch v4
 
-Phiên bản chạy thử đã tổng hợp các yêu cầu mới:
+Các thay đổi trong phiên bản này:
 
-- Giao diện và khoảng cách được tối ưu để hiển thị như một bản xác nhận giao dịch thông thường.
-- Ba ngôn ngữ: Tiếng Việt, 中文（简体） và English.
-- Bỏ phần các dòng cố định từ 7 đến 23.
-- Danh sách sản phẩm hỗ trợ chọn sản phẩm, thêm dòng trống, sửa và xóa từng dòng.
-- Tự tính thành tiền và tổng cộng.
-- Khách hàng, địa chỉ, điều khoản thanh toán và sản phẩm được chọn ngay tại trường tương ứng.
-- Dữ liệu tham khảo không còn hiển thị thành tab riêng.
-- Quản lý dữ liệu gốc trong cửa sổ riêng, có phân quyền chỉnh sửa.
-- Nhập Excel, tải Excel và In/Lưu PDF.
+- Bỏ hoàn toàn khu vực chọn dữ liệu tách riêng phía trên biểu mẫu.
+- Chọn khách hàng trực tiếp trong bảng xác nhận giao dịch.
+- Khi chọn tên công ty, hệ thống tự điền mã khách hàng, mã số thuế và địa chỉ nếu dữ liệu nguồn có sẵn.
+- Bỏ phần tiêu đề lặp lại bên trong bản thể hiện: HADAY VIỆT NAM, XÁC NHẬN GIAO DỊCH và số đơn.
+- Bỏ các trường Cảng đến, Phương thức vận chuyển và Điều khoản thanh toán khỏi bản thể hiện cuối.
+- Trong từng dòng sản phẩm, chọn tên sản phẩm trực tiếp từ danh sách.
+- Sau khi chọn sản phẩm, hệ thống tự điền SKU, tên tiếng Trung, đơn vị tính và đơn giá nếu dữ liệu nguồn có sẵn.
+- Bỏ cột tên hàng tiếng Anh khỏi bảng sản phẩm và phụ lục.
+- Vẫn hỗ trợ thêm dòng, xóa từng dòng, sửa số lượng/đơn giá, tự tính tổng, ba ngôn ngữ, nhập/xuất Excel và in PDF.
 
 ## Chạy thử
 
@@ -19,17 +19,6 @@ npm install
 npm run dev
 ```
 
-Mở địa chỉ do Vite hiển thị, thường là `http://localhost:5173`.
+## Đưa lên Vercel
 
-## GitHub và Vercel
-
-1. Giải nén file ZIP.
-2. Tải toàn bộ nội dung lên GitHub.
-3. Import repository vào Vercel.
-4. Framework Preset: Vite.
-5. Build Command: `npm run build`.
-6. Output Directory: `dist`.
-
-## Lưu ý
-
-Đây là bản chạy thử phía trình duyệt. Phân quyền chưa kết nối Supabase Auth và dữ liệu chỉnh sửa chưa lưu vào cơ sở dữ liệu máy chủ.
+Tải toàn bộ thư mục lên GitHub, import repository vào Vercel và chọn Deploy. Vercel sẽ nhận diện Vite tự động.
