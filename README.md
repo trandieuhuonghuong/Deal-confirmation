@@ -1,43 +1,35 @@
-# Haday Deal Confirmation
+# Haday Việt Nam — Xác nhận giao dịch v3
 
-Dự án React + Vite hoàn chỉnh để build và triển khai lên GitHub/Vercel.
+Phiên bản chạy thử đã tổng hợp các yêu cầu mới:
 
-## Chức năng đã gộp
+- Giao diện và khoảng cách được tối ưu để hiển thị như một bản xác nhận giao dịch thông thường.
+- Ba ngôn ngữ: Tiếng Việt, 中文（简体） và English.
+- Bỏ phần các dòng cố định từ 7 đến 23.
+- Danh sách sản phẩm hỗ trợ chọn sản phẩm, thêm dòng trống, sửa và xóa từng dòng.
+- Tự tính thành tiền và tổng cộng.
+- Khách hàng, địa chỉ, điều khoản thanh toán và sản phẩm được chọn ngay tại trường tương ứng.
+- Dữ liệu tham khảo không còn hiển thị thành tab riêng.
+- Quản lý dữ liệu gốc trong cửa sổ riêng, có phân quyền chỉnh sửa.
+- Nhập Excel, tải Excel và In/Lưu PDF.
 
-- Module **Giao dịch** gồm hai tab nhỏ: **Xác nhận giao dịch** và **Phụ lục chiết khấu**.
-- Cả hai tài liệu đều song ngữ Việt – Trung, hiển thị **Bên Bán trước, Bên Mua sau**.
-- Module **Dữ liệu sản phẩm** độc lập; sản phẩm trong giao dịch chỉ được chọn từ module này.
-- Khi chọn sản phẩm tự điền SKU, tên Trung, đơn vị, đơn giá VND.
-- Module **Dữ liệu khách hàng** độc lập; chọn khách hàng tự điền MST, địa chỉ, đại diện, chức vụ, điện thoại, email.
-- Module chỉnh sửa thông tin cố định của Bên Bán (Haday Việt Nam).
-- Tiền tệ VND; tự tính tiền hàng, chiết khấu, chi phí khác, tiền chưa thuế, VAT, tổng thanh toán và số tiền bằng chữ.
-- Nhập dữ liệu từ Excel, xuất Excel, in/lưu PDF A4.
-- Dữ liệu chỉnh sửa được lưu trong localStorage của trình duyệt.
-- Giao diện có Việt / 中文 / English.
-
-## Chạy trên máy
+## Chạy thử
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
+Mở địa chỉ do Vite hiển thị, thường là `http://localhost:5173`.
 
-```bash
-npm run build
-```
+## GitHub và Vercel
 
-Thư mục đầu ra là `dist`.
-
-## Vercel
-
-1. Upload toàn bộ dự án lên GitHub.
-2. Import repository vào Vercel.
-3. Framework: Vite.
-4. Build command: `npm run build`.
-5. Output directory: `dist`.
+1. Giải nén file ZIP.
+2. Tải toàn bộ nội dung lên GitHub.
+3. Import repository vào Vercel.
+4. Framework Preset: Vite.
+5. Build Command: `npm run build`.
+6. Output Directory: `dist`.
 
 ## Lưu ý
 
-Bản này là frontend chạy thật, chưa kết nối Supabase. Dữ liệu hiện được lưu trong trình duyệt. Khi giao diện và quy trình đã được duyệt, có thể kết nối Supabase Auth/Database mà không cần thay đổi cấu trúc module.
+Đây là bản chạy thử phía trình duyệt. Phân quyền chưa kết nối Supabase Auth và dữ liệu chỉnh sửa chưa lưu vào cơ sở dữ liệu máy chủ.
