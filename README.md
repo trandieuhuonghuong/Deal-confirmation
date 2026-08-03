@@ -39,3 +39,10 @@ npm run build
 Thư mục đầu ra: `dist`.
 
 > Môi trường tạo tệp không truy cập được gói `@vitejs/plugin-react` từ registry nội bộ, vì vậy lệnh build cần chạy trên máy của bạn, GitHub Actions hoặc Vercel với npm công khai.
+
+
+## Cập nhật V6.2
+- Sheet Phụ lục chiết khấu được dựng lại theo vùng in C1:I66 của file Excel gốc.
+- Tiêu đề, số, ngày, nơi ký, thông tin Bên bán/Bên mua và bảng 7 dòng chiết khấu khớp cấu trúc Excel.
+- Sáu loại chiết khấu được nhập tại module Đơn hàng; tổng chiết khấu tự động liên kết sang Xác nhận giao dịch và Phụ lục.
+- Phụ lục là bản chỉ đọc.
