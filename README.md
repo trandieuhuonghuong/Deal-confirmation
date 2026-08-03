@@ -46,3 +46,9 @@ Thư mục đầu ra: `dist`.
 - Tiêu đề, số, ngày, nơi ký, thông tin Bên bán/Bên mua và bảng 7 dòng chiết khấu khớp cấu trúc Excel.
 - Sáu loại chiết khấu được nhập tại module Đơn hàng; tổng chiết khấu tự động liên kết sang Xác nhận giao dịch và Phụ lục.
 - Phụ lục là bản chỉ đọc.
+
+
+## Cập nhật V6.3
+- Bỏ bảng Container / vận chuyển / điều khoản thương mại / cảng đến khỏi bản thể hiện Xác nhận giao dịch.
+- Phụ lục hiển thị Bên bán và Bên mua theo hai cột trái–phải.
+- Số tiền bằng chữ hiển thị đầy đủ bằng tiếng Việt và tiếng Trung.
