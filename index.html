@@ -1,1 +1,133 @@
-<!doctype html><html lang="vi"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Xác nhận giao dịch</title></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haday Việt Nam - Xác nhận giao dịch</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar no-print">
+    <div class="brand">
+      <div class="logo">海天</div>
+      <div><strong>Haday Việt Nam</strong><span data-i18n="appSubtitle">Quản lý xác nhận giao dịch</span></div>
+    </div>
+    <nav id="mainNav">
+      <button class="nav-item active" data-module="transactions">▣ <span data-i18n="transactions">Giao dịch</span></button>
+      <button class="nav-item" data-module="customers">♙ <span data-i18n="customerData">Dữ liệu khách hàng</span></button>
+      <button class="nav-item" data-module="products">▦ <span data-i18n="productData">Dữ liệu sản phẩm</span></button>
+      <button class="nav-item" data-module="seller">⌂ <span data-i18n="sellerData">Thông tin Bên bán</span></button>
+      <button class="nav-item" data-module="payment">◈ <span data-i18n="paymentTerms">Điều khoản thanh toán</span></button>
+      <button class="nav-item" data-module="guide">▢ <span data-i18n="guide">Hướng dẫn sử dụng</span></button>
+    </nav>
+    <div class="role-box">
+      <label data-i18n="role">Quyền người dùng</label>
+      <select id="roleSelect">
+        <option value="admin" data-i18n="admin">Quản trị viên</option>
+        <option value="sales" data-i18n="sales">Nhân viên kinh doanh</option>
+        <option value="viewer" data-i18n="viewer">Chỉ xem</option>
+      </select>
+      <small id="roleHint">Được chỉnh sửa dữ liệu gốc</small>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar no-print">
+      <div><h1 id="pageTitle">Giao dịch</h1><p data-i18n="loaded">Đã tải dữ liệu mẫu.</p></div>
+      <div class="top-actions">
+        <select id="languageSelect"><option value="vi">🇻🇳 Tiếng Việt</option><option value="zh">🇨🇳 中文（简体）</option><option value="en">🇺🇸 English</option></select>
+        <label class="btn secondary">↑ <span data-i18n="importExcel">Nhập Excel</span><input type="file" id="excelInput" accept=".xlsx,.xls" hidden /></label>
+        <button class="btn secondary" id="exportBtn">↓ <span data-i18n="exportExcel">Tải Excel</span></button>
+        <button class="btn primary" id="printBtn">▣ <span data-i18n="printPdf">In / Lưu PDF</span></button>
+      </div>
+    </header>
+
+    <section class="module active" id="module-transactions">
+      <div class="subtabs no-print">
+        <button class="subtab active" data-doc-tab="confirmation" data-i18n="confirmation">Xác nhận giao dịch</button>
+        <button class="subtab" data-doc-tab="appendix" data-i18n="appendix">Phụ lục chiết khấu</button>
+      </div>
+
+      <div class="doc-tab active" id="doc-confirmation">
+        <article class="paper">
+          <div class="document-title"><h2>XÁC NHẬN GIAO DỊCH / 交易确认书</h2></div>
+          <div class="party-grid">
+            <section class="party-card">
+              <h3>BÊN BÁN / 甲方（卖方）</h3>
+              <strong id="sellerNameVi">CÔNG TY TNHH HADAY VIỆT NAM</strong>
+              <strong id="sellerNameZh">海天越南有限公司</strong>
+              <div class="info-lines" id="sellerSummary"></div>
+            </section>
+            <section class="party-card">
+              <h3>BÊN MUA / 乙方（买方）</h3>
+              <label class="field full"><span>Khách hàng / 客户</span><select id="customerPicker"></select></label>
+              <div class="info-lines" id="customerSummary"></div>
+            </section>
+          </div>
+          <div class="order-meta">
+            <label><span>Ngày đơn hàng / 订单日期</span><input id="orderDate" type="date" /></label>
+            <label><span>Số đơn / 单号</span><input id="orderNo" value="20261001001" /></label>
+            <label><span>Điều khoản thanh toán / 付款条款</span><select id="paymentPicker"></select></label>
+            <label><span>Nơi ký / 签约地</span><input id="signingPlace" value="Hồ Chí Minh, Việt Nam / 胡志明市，越南" /></label>
+          </div>
+
+          <div class="section-heading"><h3>DANH SÁCH SẢN PHẨM / 商品清单</h3><button class="btn primary small no-print" id="addProductRow">＋ Thêm dòng</button></div>
+          <div class="table-wrap">
+            <table class="product-table">
+              <thead><tr><th>STT</th><th>Sản phẩm / 商品名称</th><th>Mã hàng / SKU</th><th>Tên hàng (中文)</th><th>Đơn vị</th><th>Số lượng</th><th>Đơn giá (VND)</th><th>Thành tiền (VND)</th><th class="no-print">Thao tác</th></tr></thead>
+              <tbody id="transactionItems"></tbody>
+            </table>
+          </div>
+
+          <div class="totals-grid">
+            <label><span>(6) Tổng cộng tiền hàng / 商品金额小计</span><input id="goodsTotal" readonly /></label>
+            <label><span>(7) Chiết khấu / 折扣</span><input id="discount" type="number" min="0" value="0" /></label>
+            <label><span>(8) Chi phí phát sinh khác / 其他附加费用</span><input id="extraFee" type="number" min="0" value="0" /></label>
+            <label><span>(9) Tổng tiền chưa thuế / 不含税总金额</span><input id="beforeTax" readonly /></label>
+            <label><span>(10) Thuế GTGT / 增值税</span><div class="inline-input"><input id="vatRate" type="number" value="8" min="0" max="100" /><em>%</em><input id="vatAmount" readonly /></div></label>
+            <label class="grand"><span>(11) Tổng số tiền bao gồm thuế / 含税总金额</span><input id="grandTotal" readonly /></label>
+          </div>
+          <div class="amount-words"><b>Bằng chữ / 金额大写:</b><span id="amountWords"></span></div>
+
+          <section class="terms"><h3>5. CÁC ĐIỀU KHOẢN KHÁC / 其他条款</h3><div id="termsText"></div><h3>6. GHI CHÚ / 备注</h3><p>Bên Bán xuất hóa đơn GTGT theo mức thuế suất pháp định tại thời điểm xuất hóa đơn. Nếu thuế suất thay đổi, giá bán được điều chỉnh tương ứng.</p><p>卖方按开票时的法定税率开具增值税发票；如税率变化，销售价格相应调整。</p></section>
+          <div class="agreement">Hai bên đã đọc, hiểu rõ và đồng ý với toàn bộ nội dung nêu trên, cùng ký xác nhận.<br/>双方已阅读、理解并同意以上全部内容，并签字确认。</div>
+          <div class="signatures"><div><b>BÊN BÁN / 甲方（卖方）</b><span>(Ký tên, đóng dấu / 签字盖章)</span><p>____ / ____ / ______</p></div><div><b>BÊN MUA / 乙方（买方）</b><span>(Ký tên, đóng dấu / 签字盖章)</span><p>____ / ____ / ______</p></div></div>
+        </article>
+      </div>
+
+      <div class="doc-tab" id="doc-appendix">
+        <article class="paper appendix-paper">
+          <div class="appendix-head">
+            <div><h2>PHỤ LỤC CHIẾT KHẤU - PHỤ LỤC 1</h2><h2>折扣附录 - 附录 1</h2></div>
+            <dl><dt>Số / 编号:</dt><dd id="appendixNo">20261001001</dd><dt>Số đơn / 单号:</dt><dd id="appendixOrderNo">20261001001</dd><dt>Ngày / 日期:</dt><dd id="appendixDate"></dd><dt>Ký tại / 签约地:</dt><dd id="appendixPlace"></dd></dl>
+          </div>
+          <div class="party-grid appendix-parties"><section class="party-card"><h3>BÊN A (BÊN BÁN) / 甲方（卖方）</h3><div id="appendixSeller"></div></section><section class="party-card"><h3>BÊN B (BÊN MUA) / 乙方（买方）</h3><div id="appendixBuyer"></div></section></div>
+          <p>Sau khi trao đổi, đàm phán, hai bên thống nhất ký kết Phụ lục chi tiết các khoản chiết khấu như sau:<br/>经双方友好协商一致，现就折扣统款达成以下一致并签署本附录：</p>
+          <h3>1. THÔNG TIN CHIẾT KHẤU / 折扣信息</h3>
+          <table class="discount-table"><thead><tr><th>STT</th><th>Nội dung / 内容</th><th>Số tiền (VND) / 金额（越南盾）</th></tr></thead><tbody id="appendixTotals"></tbody></table>
+          <div class="amount-words"><b>Bằng chữ / 金额大写:</b><span id="appendixWords"></span></div>
+          <div class="signatures"><div><b>BÊN A (BÊN BÁN)<br/>甲方（卖方）</b><span>(Ký tên, đóng dấu / 签字盖章)</span><p>____ / ____ / ______</p></div><div><b>BÊN B (BÊN MUA)<br/>乙方（买方）</b><span>(Ký tên, đóng dấu / 签字盖章)</span><p>____ / ____ / ______</p></div></div>
+          <hr/>
+          <h3>2. ĐIỀU KHOẢN CHUNG / 一般条款</h3>
+          <p>2.1 Phụ lục này là một phần không tách rời của Hợp đồng nguyên tắc / Hợp đồng mua bán số: <span id="contractRef"></span>.<br/>本附录为合同编号 <span id="contractRefZh"></span> 之不可分割组成部分。</p>
+          <p>2.2 Mọi nội dung chưa được quy định trong phụ lục này sẽ thực hiện theo các điều khoản của Hợp đồng đã ký kết.<br/>本附录未约定事项，按照双方已经签署合同的约定执行。</p>
+          <p>2.3 Phụ lục này có hiệu lực kể từ ngày ký và có giá trị pháp lý như Hợp đồng.<br/>本附录自双方签字盖章之日起生效，具有与合同同等法律效力。</p>
+          <div class="agreement">Hai bên đã đọc, hiểu rõ và đồng ý với toàn bộ nội dung nêu trên.<br/>双方已阅读、理解并同意以上全部内容。</div>
+          <div class="signatures"><div><b>BÊN A (BÊN BÁN)<br/>甲方（卖方）</b><span>(Ký tên, đóng dấu / 签字盖章)</span><p>____ / ____ / ______</p></div><div><b>BÊN B (BÊN MUA)<br/>乙方（买方）</b><span>(Ký tên, đóng dấu / 签字盖章)</span><p>____ / ____ / ______</p></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="module" id="module-products"><div class="management-card"><div class="management-head"><div><h2>Dữ liệu sản phẩm / 产品数据</h2><p>Sản phẩm trong Xác nhận giao dịch chỉ được chọn từ module này.</p></div><div><button class="btn primary edit-only" id="addProduct">＋ Thêm sản phẩm</button><label class="btn secondary edit-only">↑ Nhập Excel<input type="file" id="productImport" accept=".xlsx,.xls" hidden /></label><button class="btn secondary" id="productExport">↓ Xuất Excel</button></div></div><div class="filter-row"><input id="productSearch" placeholder="Tìm SKU hoặc tên sản phẩm..." /></div><div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>SKU</th><th>Tên tiếng Việt</th><th>Tên tiếng Trung</th><th>Đơn vị</th><th>Đơn giá VND</th><th>Quy cách</th><th>Barcode</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody id="productDataBody"></tbody></table></div></div></section>
+    <section class="module" id="module-customers"><div class="management-card"><div class="management-head"><div><h2>Dữ liệu khách hàng / 客户数据</h2><p>Khi chọn khách hàng, thông tin liên quan được tự động điền vào giao dịch.</p></div><button class="btn primary edit-only" id="addCustomer">＋ Thêm khách hàng</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Mã KH</th><th>Tên Việt</th><th>Tên Trung</th><th>Mã số thuế</th><th>Địa chỉ</th><th>Đại diện</th><th>Điện thoại</th><th>Thao tác</th></tr></thead><tbody id="customerDataBody"></tbody></table></div></div></section>
+    <section class="module" id="module-seller"><div class="management-card"><h2>Thông tin Bên bán / 卖方信息</h2><form id="sellerForm" class="form-grid"></form></div></section>
+    <section class="module" id="module-payment"><div class="management-card"><div class="management-head"><h2>Điều khoản thanh toán / 付款条款</h2><button class="btn primary edit-only" id="addPayment">＋ Thêm điều khoản</button></div><div id="paymentList"></div></div></section>
+    <section class="module" id="module-guide"><div class="management-card guide"><h2>Hướng dẫn sử dụng</h2><ol><li>Quản lý sản phẩm tại module <b>Dữ liệu sản phẩm</b>. Không nhập tên sản phẩm trực tiếp trong giao dịch.</li><li>Trong module Giao dịch, chọn khách hàng để hệ thống tự điền mã khách hàng, mã số thuế, địa chỉ, đại diện và điện thoại.</li><li>Chọn sản phẩm ở từng dòng; SKU, tên Trung, đơn vị và đơn giá VND tự động xuất hiện.</li><li>Tab Phụ lục chiết khấu dùng chung toàn bộ dữ liệu của tab Xác nhận giao dịch.</li><li>Bên bán luôn hiển thị trước Bên mua trong biểu mẫu, phụ lục, bản in và PDF.</li><li>Chọn “In / Lưu PDF” để mở hộp thoại in, chọn khổ A4 và lưu PDF.</li></ol></div></section>
+  </main>
+</div>
+
+<dialog id="editDialog"><form method="dialog" id="editForm"><div class="dialog-head"><h3 id="editTitle">Chỉnh sửa</h3><button value="cancel">×</button></div><div id="editFields" class="dialog-fields"></div><div class="dialog-actions"><button value="cancel" class="btn secondary">Hủy</button><button value="default" class="btn primary" id="saveEdit">Lưu</button></div></form></dialog>
+<script src="app.js"></script>
+</body></html>
