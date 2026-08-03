@@ -1,0 +1,14 @@
+{
+  "product_image_source": {
+    "name": "Ảnh sản phẩm Haday",
+    "type": "google_drive_folder",
+    "folder_url": "https://drive.google.com/drive/folders/1lOWdmuIb8zIPcy8w7N-6xOLysUnl82hB?usp=sharing",
+    "folder_id": "1lOWdmuIb8zIPcy8w7N-6xOLysUnl82hB",
+    "usage": [
+      "Làm thư viện ảnh tham khảo cho dữ liệu sản phẩm",
+      "Liên kết ảnh với mã vật liệu/SKU trong dữ liệu gốc",
+      "Hiển thị ảnh khi tra cứu sản phẩm; không bắt buộc xuất lên bản PDF xác nhận giao dịch"
+    ],
+    "status": "Đã lưu nguồn liên kết; cần tệp ảnh hoặc danh sách liên kết trực tiếp để đóng gói ảnh vào website"
+  }
+}
