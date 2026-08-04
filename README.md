@@ -1,21 +1,21 @@
-# Haday Deal Confirmation V7.2
+# Haday Deal Confirmation V7.3
 
-Bản cập nhật bố cục metadata của Xác nhận giao dịch và Phụ lục chiết khấu.
+Bản React/Vite để build web.
 
-- Khối Số / Ngày / Nơi ký được ghép theo cùng một kiểu ở hai chứng từ.
-- Khối thông tin được canh phải, dóng theo mép phải bảng Bên bán/Bên mua.
-- Khối metadata không cao hơn tiêu đề; được đặt thấp hơn dòng tiêu đề tài liệu.
-- Bố cục in PDF dùng cùng quy tắc căn lề.
+## Cập nhật V7.3
+- Điều khoản thanh toán trong Đơn hàng chỉ còn một khối nội dung song ngữ, tự lấy từ Dữ liệu gốc → Điều khoản thanh toán.
+- Không còn hai ô nhập nội dung Việt/Trung tách rời.
+- Tiêu đề tài liệu hiển thị trước; Số, Ngày và Nơi ký xuống hàng riêng bên dưới và căn phải.
+- Áp dụng giống nhau cho Xác nhận giao dịch, Phụ lục, bản hiển thị và bản in.
+- Nội dung xác nhận “Hai bên đã đọc...” căn trái.
 
 ## Chạy
-
 ```bash
 npm install
 npm run dev
 ```
 
 ## Build
-
 ```bash
 npm run build
 ```

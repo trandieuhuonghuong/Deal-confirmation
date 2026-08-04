@@ -39,3 +39,30 @@
 .appendix-heading{margin-bottom:14px}
 @media(max-width:900px){.document-heading{grid-template-columns:1fr}.document-heading>h2{grid-column:1;transform:none}.document-heading .doc-meta,.document-heading .appendix-meta-excel{grid-column:1;width:min(100%,430px);justify-self:end;margin-top:10px}}
 @media print{.document-heading{grid-template-columns:minmax(0,1fr) 66mm;column-gap:5mm;margin-bottom:3mm}.document-heading>h2{transform:translateX(33mm)}.document-heading .doc-meta,.document-heading .appendix-meta-excel{margin:0}.document-heading .doc-meta span,.document-heading .appendix-meta-excel p{grid-template-columns:26mm 1fr;gap:2mm;font-size:8.5pt}}
+
+
+/* V7.3: one payment block, consistent screen/print document layout */
+.payment-term-preview{grid-column:1/-1;border:1px solid #cbd7d1;border-radius:8px;background:#f9fcfa;padding:14px 16px;min-height:110px}
+.payment-term-preview-title{font-weight:750;color:#087746;margin-bottom:9px}
+.payment-term-preview p{margin:5px 0;line-height:1.55;white-space:pre-line}
+
+/* Title occupies its own row. Metadata is a separate row below and aligned right. */
+.document-heading{display:flex;flex-direction:column;align-items:stretch;margin:0 0 14px;padding-top:2px}
+.document-heading>h2{width:100%;text-align:center;margin:0;transform:none;line-height:1.35}
+.document-heading .doc-meta,.document-heading .appendix-meta-excel{width:min(430px,48%);align-self:flex-end;margin:14px 0 2px;padding:0;display:grid;gap:4px;line-height:1.35}
+.document-heading .doc-meta span,.document-heading .appendix-meta-excel p{display:grid;grid-template-columns:118px minmax(0,1fr);gap:8px;margin:0;white-space:nowrap}
+
+/* The bilingual acknowledgement is left-aligned in both web and print. */
+.agreement{text-align:left}
+
+@media(max-width:900px){
+ .document-heading .doc-meta,.document-heading .appendix-meta-excel{width:min(100%,430px);margin-top:10px}
+}
+@media print{
+ .payment-term-preview{padding:3mm 4mm;min-height:0;background:#fff}
+ .document-heading{display:flex;flex-direction:column;margin-bottom:3mm}
+ .document-heading>h2{transform:none}
+ .document-heading .doc-meta,.document-heading .appendix-meta-excel{width:66mm;align-self:flex-end;margin:3mm 0 0}
+ .document-heading .doc-meta span,.document-heading .appendix-meta-excel p{grid-template-columns:26mm 1fr;gap:2mm;font-size:8.5pt}
+ .agreement{text-align:left}
+}
