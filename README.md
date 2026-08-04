@@ -52,3 +52,9 @@ Thư mục đầu ra: `dist`.
 - Bỏ bảng Container / vận chuyển / điều khoản thương mại / cảng đến khỏi bản thể hiện Xác nhận giao dịch.
 - Phụ lục hiển thị Bên bán và Bên mua theo hai cột trái–phải.
 - Số tiền bằng chữ hiển thị đầy đủ bằng tiếng Việt và tiếng Trung.
+
+
+## V6.4
+- Gộp Dữ liệu sản phẩm và Dữ liệu khách hàng thành module **Dữ liệu gốc**.
+- Bên trong module có 6 tab nhỏ: Thông tin khách hàng, Thông tin sản phẩm, Điều khoản thanh toán, Thông tin chiết khấu nhà phân phối, Thưởng chiết khấu, Hỗ trợ thị trường.
+- Mỗi tab cho phép thêm, sửa, xóa dữ liệu và dữ liệu được lưu bằng localStorage.

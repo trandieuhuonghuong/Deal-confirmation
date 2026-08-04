@@ -12,3 +12,6 @@
 .appendix-party-grid .appendix-party+.appendix-party{border-left:1px solid #222}
 @media(max-width:900px){.appendix-party-grid{grid-template-columns:1fr}.appendix-party-grid .appendix-party+.appendix-party{border-left:0;border-top:1px solid #222}}
 @media print{.amount-in-words,.appendix-amount-words{padding:4px 6px;margin-top:5px}.appendix-party-grid{grid-template-columns:1fr 1fr;break-inside:avoid}.appendix-party-grid .appendix-party+.appendix-party{border-top:0;border-left:1px solid #222}}
+
+/* V6.4 master data tabs */
+.master-data-module{max-width:1500px}.master-tabs{display:flex;gap:7px;flex-wrap:wrap;padding:7px;background:#f1f6f3;border:1px solid #d7e2dc;border-radius:10px;margin:4px 0 16px}.master-tabs button{border:0;background:transparent;padding:10px 14px;border-radius:7px;font-weight:700;color:#294236;cursor:pointer}.master-tabs button.active{background:#087746;color:#fff;box-shadow:0 2px 5px #064a2d2b}.master-tab-panel{border:1px solid #dce6e1;border-radius:10px;padding:14px;background:#fff}.master-inner-toolbar{margin:0 0 12px}.master-inner-toolbar h2{font-size:19px}.master-data-module .data-table{min-width:1050px}@media(max-width:900px){.master-tabs{display:grid;grid-template-columns:1fr 1fr}.master-tabs button{text-align:left}}
