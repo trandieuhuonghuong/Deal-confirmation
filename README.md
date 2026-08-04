@@ -23,3 +23,10 @@ npm run dev
 ```bash
 npm run build
 ```
+
+
+## Cập nhật V7.1
+- Module Đơn hàng có hai tab: Đơn hàng và Danh sách đơn hàng.
+- Tạo mới sẽ lưu vào danh sách tự động qua localStorage.
+- Danh sách cho phép tìm kiếm, mở chỉnh sửa và xóa từng đơn.
+- Khối số đơn/ngày/nơi ký của Xác nhận và Phụ lục được canh phải, lùi vào theo mép bảng nội dung.
